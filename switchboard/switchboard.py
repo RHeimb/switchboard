@@ -34,11 +34,13 @@ def trigger(auth=None):
 
 def trigger_from_form(form):
     """ Logic for breaking down the POST form from redcap """
+    #added repeat_instance=form.get('redcap_repeat_instance', '') -RH
     data = dict(pid=int(form.get('project_id', 0)),
                 form=form.get('instrument', ''),
                 record=form.get('record', ''),
                 event=form.get('redcap_event_name', ''),
                 dag=form.get('redcap_data_access_group', ''),
+                repeat_instance=form.get('redcap_repeat_instance', '')
                 )
     data['status'] = int(form.get(comp_key(data['form']), 0))
     return Trigger(**data)
