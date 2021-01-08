@@ -23,16 +23,17 @@ class Operator(object):
 
 class Trigger(object):
     """Abstraction of incoming data entry trigger """
-    keys = ['pid', 'form', 'status', 'dag', 'event', 'record']
+    keys = ['pid', 'form', 'status', 'dag', 'event', 'record', 'repeat_instance']
 
     def __init__(self, pid=None, form=None, status=None, dag=None,
-                 event=None, record=None):
+                 event=None, record=None, repeat_instance=None):
         self.pid = pid
         self.form = form
         self.status = status
         self.dag = dag
         self.event = event
         self.record = record
+        self.repeat_instance = None
 
     def __repr__(self):
         return 'Trigger<%s>' % ','.join([str(getattr(self, k)) for k in self.keys])
@@ -49,6 +50,7 @@ class Workflow(object):
     dag = None
     event = None
     record = None
+    repeat_instance = None
 
     def __init__(self):
         """Config comes from class variables"""
