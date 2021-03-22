@@ -15,7 +15,7 @@ class Operator(object):
         self.workflows = workflows
 
     def connect(self, trigger):
-        map(lambda x: x.handle(trigger), self.workflows)
+        list(map(lambda x: x.handle(trigger), self.workflows))
 
     def __repr__(self):
         return "Operator<N=%d>" % len(self.workflows)
@@ -77,7 +77,7 @@ class Workflow(object):
     @classmethod
     def match(self, value, trigger_value):
         """ Matching function """
-        if isinstance(trigger_value, (int, long)):
+        if isinstance(trigger_value, (int)):
             # If trigger is an int, try to coerce rec into int
             try:
                 if int(value) == trigger_value:
@@ -96,7 +96,7 @@ class Workflow(object):
                     return False
             except ValueError:
                 return False
-        if isinstance(trigger_value, basestring):
+        if isinstance(trigger_value, str):
             if value == trigger_value:
                     return True
             else:
